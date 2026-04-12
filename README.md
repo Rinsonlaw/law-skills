@@ -20,3 +20,11 @@ Model：xxx
 ```
 
 - `type`: `[update]` | `[bugfix]` | `[optimize]`
+
+## follow-builders
+
+AI Builders 内容聚合。追踪 X/Twitter 和 YouTube 播客上的 AI builder，生成可读的摘要。
+
+- 无需 API key，所有内容从中心化 feed 获取
+- 支持每日/每周定时推送
+- 支持 Telegram、Email、stdout 等多种投递方式
