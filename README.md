@@ -1,5 +1,10 @@
 # Skills
 
+## 安装方法
+
+```bash
+npx skills add git@github.com:Rinsonlaw/law-skills.git
+```
 ## commit-format
 
 AI Agent 提交格式规范。AI 执行 `git commit` 时强制使用，格式如下：
