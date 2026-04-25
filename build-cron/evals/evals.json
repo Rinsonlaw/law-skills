@@ -1,0 +1,23 @@
+{
+  "skill_name": "build-cron",
+  "evals": [
+    {
+      "id": 0,
+      "prompt": "帮我建一个每天早上9点执行的定时任务",
+      "expected_output": "生成完整的 openclaw cron add 命令，包含 --name、--agent、--session-key、--cron、--tz、--session、--wake、--message、--timeout-seconds、--announce、--channel、--to 等参数，用户回复后执行",
+      "files": []
+    },
+    {
+      "id": 1,
+      "prompt": "我想创建一个 cron，每天下午3点半运行，任务内容是整理当天的新闻",
+      "expected_output": "同上，但 cron 表达式为 30 15 * * *，task_message 为'整理当天的新闻'",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "新建定时任务，晚上11点执行日报",
+      "expected_output": "同上，但 cron 表达式为 0 23 * * *，task_message 为'日报'",
+      "files": []
+    }
+  ]
+}

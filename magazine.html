@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skills Magazine</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --red: #c41e3a;
+      --red-light: #fce8ea;
+      --red-dark: #8b1528;
+      --gray-100: #f7f7f7;
+      --gray-200: #e8e8e8;
+      --gray-300: #d0d0d0;
+      --gray-600: #666;
+      --gray-800: #333;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+      --shadow-lg: 0 8px 30px rgba(0,0,0,0.12);
+      --radius: 16px;
+      --sidebar-w: 240px;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--gray-100);
+      color: var(--gray-800);
+      display: flex;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .sidebar {
+      width: var(--sidebar-w);
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+      box-shadow: 2px 0 12px rgba(0,0,0,0.06);
+      z-index: 100;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .sidebar-header {
+      padding: 28px 24px 24px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .sidebar-header h1 { font-size: 20px; font-weight: 800; color: var(--red); letter-spacing: -0.5px; margin-bottom: 4px; }
+    .sidebar-header p { font-size: 12px; color: var(--gray-600); font-weight: 500; }
+    .sidebar-nav { flex: 1; padding: 16px 12px; }
+    .nav-item {
+      padding: 14px 16px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--gray-600);
+      border-radius: 10px;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.2s ease;
+      border: none;
+      background: transparent;
+      width: 100%;
+      text-align: left;
+    }
+    .nav-item:hover { background: var(--gray-100); color: var(--red); }
+    .nav-item.active { background: var(--red-light); color: var(--red); }
+    .nav-item .icon { font-size: 18px; flex-shrink: 0; }
+    .nav-item span { font-size: 13px; }
+
+    .main { flex: 1; margin-left: var(--sidebar-w); padding: 32px 40px; min-height: 100vh; transition: margin 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+    .magazine {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      max-width: 100%;
+    }
+    .magazine-header {
+      background: var(--red);
+      color: #fff;
+      padding: 36px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .magazine-header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 300px;
+      height: 300px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 50%;
+    }
+    .magazine-header::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      left: 10%;
+      width: 200px;
+      height: 200px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 50%;
+    }
+    .magazine-header h1 { font-size: 32px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px; position: relative; }
+    .magazine-header p { opacity: 0.85; font-size: 14px; position: relative; font-style: italic; padding-left: 16px; border-left: 3px solid rgba(255,255,255,0.4); }
+
+    .contents { padding: 0; }
+    .content {
+      padding: 36px 40px;
+      display: none;
+      animation: fadeIn 0.4s ease;
+      overflow-x: hidden;
+      word-break: break-word;
+    }
+    .content.active { display: block; }
+    .content * { max-width: 100%; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .content h2 { font-size: 18px; font-weight: 700; color: var(--red); margin: 28px 0 14px; letter-spacing: -0.3px; }
+    .content h2:first-child { margin-top: 0; }
+    .content h3 { font-size: 15px; font-weight: 600; color: var(--gray-800); margin: 20px 0 10px; }
+    .content pre { background: var(--gray-100); border: 1px solid var(--gray-200); border-radius: 12px; padding: 18px 20px; overflow-x: auto; font-size: 13px; line-height: 1.65; margin: 14px 0; white-space: pre-wrap; word-break: break-word; }
+    .content code { font-family: 'SF Mono', 'Fira Code', monospace; background: var(--gray-100); padding: 2px 6px; border-radius: 4px; font-size: 13px; overflow-x: auto; max-width: 100%; display: inline-block; vertical-align: middle; line-height: 1.4; }
+    .content p { line-height: 1.8; margin-bottom: 12px; color: var(--gray-800); }
+    .content ul, .content ol { padding-left: 22px; margin-bottom: 12px; }
+    .content li { line-height: 1.8; margin-bottom: 6px; }
+    .content table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13px; border-radius: 10px; overflow: hidden; border: 1px solid var(--gray-200); table-layout: fixed; }
+    .content th, .content td { border-bottom: 1px solid var(--gray-200); padding: 12px 14px; text-align: left; word-break: break-word; overflow-wrap: break-word; }
+    .content th { background: var(--gray-100); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--gray-600); }
+    .content tr:last-child td { border-bottom: none; }
+    .content tr:hover td { background: #fafafa; }
+
+    .frontmatter { background: var(--red-light); border-left: 4px solid var(--red); padding: 18px 22px; margin-bottom: 24px; border-radius: 0 12px 12px 0; }
+    .frontmatter p { margin: 4px 0; font-size: 13px; }
+    .frontmatter code { background: rgba(196,30,58,0.12); padding: 2px 6px; border-radius: 4px; font-size: 12px; color: var(--red-dark); font-weight: 600; }
+    .frontmatter strong { color: var(--red); margin-right: 4px; }
+
+    .content blockquote { background: var(--gray-100); border-left: 4px solid var(--gray-300); padding: 14px 18px; margin: 14px 0; border-radius: 0 10px 10px 0; }
+    .content blockquote p { margin: 0; }
+
+    .menu-toggle {
+      display: none;
+      position: fixed;
+      top: 8px;
+      left: 16px;
+      z-index: 300;
+      width: 44px;
+      height: 44px;
+      background: var(--red);
+      border: none;
+      border-radius: 12px;
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+      box-shadow: var(--shadow-md);
+      align-items: center;
+      justify-content: center;
+    }
+    .menu-toggle.hidden { display: none; }
+
+    .appbar {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: var(--red);
+      color: #fff;
+      z-index: 200;
+      align-items: center;
+      padding: 0 16px 0 72px;
+      font-size: 16px;
+      font-weight: 700;
+      box-shadow: var(--shadow-md);
+    }
+    .back-to-top {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 44px;
+      height: 44px;
+      background: rgba(196,30,58,0.5);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 50%;
+      font-size: 20px;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.25), 0 2px 6px rgba(0,0,0,0.15);
+      z-index: 150;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s, transform 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .back-to-top.visible { opacity: 1; pointer-events: auto; transform: scale(1); }
+    .back-to-top:active { transform: scale(0.95); }
+
+    @media (max-width: 768px) {
+      .menu-toggle { display: flex; }
+      .appbar { display: flex; }
+      .sidebar { transform: translateX(-100%); top: 60px; height: calc(100vh - 60px); }
+      .sidebar.open { transform: translateX(0); box-shadow: var(--shadow-lg); }
+      .main { margin-left: 0; padding: 76px 16px 24px; }
+      .magazine { border-radius: 12px; }
+      .magazine-header { padding: 24px 20px; }
+      .magazine-header h1 { font-size: 22px; }
+      .content { padding: 20px 16px; }
+    }
+
+    .content pre:hover { border-color: var(--gray-300); }
+    .nav-item { position: relative; }
+    .nav-item::after { content: ''; position: absolute; right: 16px; width: 6px; height: 6px; background: var(--red); border-radius: 50%; opacity: 0; transition: opacity 0.2s; }
+    .nav-item.active::after { opacity: 1; }
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 2px; }
+  </style>
+</head>
+<body>
+  <button class="menu-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">☰</button>
+  <header class="appbar"><div class="appbar-title">Skills Magazine</div></header>
+  <nav class="sidebar">
+    <div class="sidebar-header"><h1>Skills</h1><p>Library</p></div>
+    <div class="sidebar-nav" id="nav"></div>
+  </nav>
+  <main class="main">
+    <div class="magazine">
+      <div class="magazine-header">
+        <h1 id="header-title">Skills Magazine</h1>
+        <p id="header-desc">Your personal skill library</p>
+      </div>
+      <div class="contents" id="contents"><div class="loading" style="padding:40px;text-align:center;color:#888;">Loading...</div></div>
+    </div>
+  </main>
+  <div class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+  <script>
+    const skills = [
+      { id: 'build-cron', title: 'Build Cron', icon: '⏰', path: 'build-cron/SKILL.md' },
+      { id: 'commit-format', title: 'Commit Format', icon: '📝', path: 'commit-format/SKILL.md' },
+      { id: 'follow-builders', title: 'Follow Builders', icon: '🏗️', path: 'follow-builders/SKILL.md' }
+    ];
+
+    function parseFrontmatter(text) {
+      const match = text.match(/^---\n([\s\S]*?)\n---\n/);
+      if (!match) return { frontmatter: null, body: text };
+      const fm = {};
+      match[1].split('\n').forEach(line => { const idx = line.indexOf(':'); if (idx > 0) fm[line.slice(0, idx).trim()] = line.slice(idx + 1).trim(); });
+      return { frontmatter: fm, body: text.slice(match[0].length) };
+    }
+
+    function parseMarkdown(text) {
+      const blocks = [];
+      let idx = 0;
+      text = text.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) => { const ph = `%%CODEBLOCK${idx}%%`; blocks.push(`<pre><code>${e(code.trim())}</code></pre>`); idx++; return ph; });
+      let html = text;
+      html = html.replace(/`([^`]+)`/g, (_, c) => `<code>${e(c)}</code>`);
+      html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+      html = html.replace(/^## (.+)$/gm, '<h2>$1</h2>');
+      html = html.replace(/^# (.+)$/gm, '<h1>$1</h1>');
+      html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+      html = html.replace(/^(\d+)\. (.+)$/gm, '<li>$2</li>');
+      html = html.replace(/^- (.+)$/gm, '<li>$1</li>');
+      html = html.replace(/(<li>.*<\/li>)+/g, '<ul>$&</ul>');
+      html = html.replace(/^> (.+)$/gm, '<blockquote><p>$1</p></blockquote>');
+      html = html.replace(/\|(.+)\|\n\|[-| ]+\|\n((?:\|.+\|\n)*)/g, (_, h, rows) => { const hs = h.split('|').filter(c => c.trim()).map(c => `<th>${c.trim()}</th>`).join(''); const br = rows.trim().split('\n').map(r => '<tr>' + r.split('|').filter(c => c.trim()).map(c => `<td>${c.trim()}</td>`).join('') + '</tr>').join(''); return `<table><thead><tr>${hs}</tr></thead><tbody>${br}</tbody></table>`; });
+      html = html.replace(/\n\n+/g, '</p><p>');
+      html = '<p>' + html + '</p>';
+      html = html.replace(/<p>(<h[123]>)/g, '$1').replace(/(<\/h[123]>)<\/p>/g, '$1');
+      html = html.replace(/<p>(<pre>)/g, '$1').replace(/(<\/pre>)<\/p>/g, '$1');
+      html = html.replace(/<p>(<table>)/g, '$1').replace(/(<\/table>)<\/p>/g, '$1');
+      html = html.replace(/<p>(<ul>)/g, '$1').replace(/(<\/ul>)<\/p>/g, '$1');
+      html = html.replace(/<p>(<blockquote>)/g, '$1').replace(/(<\/blockquote>)<\/p>/g, '$1');
+      blocks.forEach((b, i) => { html = html.replace(`%%CODEBLOCK${i}%%`, b); });
+      return html;
+    }
+
+    function e(t) { return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+    function render(s, fm, body, active) {
+      let h = `<div class="content${active?' active':''}" data-id="${s.id}">`;
+      h += parseMarkdown(body) + '</div>';
+      return h;
+    }
+
+    async function load() {
+      const nav = document.getElementById('nav');
+      const contents = document.getElementById('contents');
+
+      const rs = await Promise.all(skills.map(async s => {
+        try {
+          const r = await fetch(s.path + '?t=' + Date.now());
+          const t = await r.text();
+          return { s, ...parseFrontmatter(t) };
+        } catch { return { s, frontmatter: null, body: '' }; }
+      }));
+
+      contents.innerHTML = rs.map((r, i) => render(r.s, r.frontmatter, r.body, i === 0)).join('');
+
+      if (rs[0] && rs[0].frontmatter) {
+        document.getElementById('header-title').textContent = rs[0].frontmatter.name || skills[0].title;
+        document.getElementById('header-desc').textContent = rs[0].frontmatter.description || '';
+      }
+
+      rs.forEach((r, i) => {
+        const s = r.s;
+        const el = document.createElement('button');
+        el.className = 'nav-item' + (i === 0 ? ' active' : '');
+        el.dataset.id = s.id;
+        el.innerHTML = `<span class="icon">${s.icon}</span><span>${s.title}</span>`;
+        el.onclick = () => {
+          document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+          document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+          el.classList.add('active');
+          document.querySelector(`.content[data-id="${s.id}"]`).classList.add('active');
+          document.querySelector('.sidebar').classList.remove('open');
+          const fm = rs[i] && rs[i].frontmatter;
+          document.getElementById('header-title').textContent = (fm && fm.name) ? fm.name : s.title;
+          document.getElementById('header-desc').textContent = (fm && fm.description) ? fm.description : '';
+        };
+        nav.appendChild(el);
+      });
+    }
+    load();
+    window.addEventListener('scroll', () => { document.getElementById('backToTop').classList.toggle('visible', window.scrollY > 200); });
+  </script>
+</body>
+</html>
