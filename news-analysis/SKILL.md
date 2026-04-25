@@ -19,7 +19,10 @@ description: 每日热点新闻分析并写入 Obsidian。当用户提到"新闻
 
 ```bash
 DATE=$(date +%Y-%m-%d)
-mmx search query "国际新闻,国内时政新闻,财经新闻,科技AI新闻 $DATE"
+mmx search query "国际新闻 $DATE"
+mmx search query "国内时政 $DATE"
+mmx search query "财经新闻 $DATE"
+mmx search query "科技AI $DATE"
 ```
 
 ### 第三步：整理新闻内容
@@ -91,6 +94,7 @@ mmx search query "国际新闻,国内时政新闻,财经新闻,科技AI新闻 $D
 ```
 
 ## 注意事项
+- 所有新闻的序号要从1开始，依次递增到30
 - 摘要需精炼，控制在 100 字左右
 - 所有链接必须保留原文地址
 - 趋势归纳部分要有深度分析，不只是罗列
