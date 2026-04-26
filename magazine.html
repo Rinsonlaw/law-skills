@@ -897,7 +897,7 @@
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-header">
-        <h1>Skills</h1>
+        <h1>Law Skills</h1>
         <p>Library</p>
         <button class="sidebar-theme" id="sidebarTheme" title="Toggle theme">
           <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -949,6 +949,7 @@
 
   <script>
     const skills = [
+      { id: 'Home', title: 'Home', icon: '🏠', path: 'HOME.md' },
       { id: 'build-cron', title: 'Build Cron', icon: '⏰', path: 'build-cron/SKILL.md' },
       { id: 'commit-format', title: 'Commit Format', icon: '📝', path: 'commit-format/SKILL.md' },
       { id: 'follow-builders', title: 'Follow Builders', icon: '🏗️', path: 'follow-builders/SKILL.md' },
@@ -981,6 +982,7 @@
       });
       let html = text;
       html = html.replace(/`([^`]+)`/g, (_, c) => `<code>${e(c)}</code>`);
+      html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, t, u) => u.startsWith('#') ? `<a href="${e(u)}">${t}</a>` : `<a href="${e(u)}" target="_blank" rel="noopener">${t}</a>`);
       html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
       html = html.replace(/^## (.+)$/gm, '<h2>$1</h2>');
       html = html.replace(/^# (.+)$/gm, '<h1>$1</h1>');

@@ -1,4 +1,4 @@
-# Skills
+# Law Skills
 
 ## 安装方法
 
@@ -6,12 +6,12 @@
 npx skills add git@github.com:Rinsonlaw/law-skills.git
 ```
 
-## 在线预览
+## Magazine 预览
 
 本地预览 magazine（需启动 HTTP server）：
 
 ```bash
-cd /Users/law/Documents/code/law-skills && python3 -m http.server 8124
+cd law-skills && python3 -m http.server 8124
 ```
 
 然后访问 http://localhost:8124/magazine.html

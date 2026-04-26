@@ -1,6 +1,6 @@
 ---
 name: build-cron
-description: 创建 OpenClaw 定时任务（cron job）。当用户提到"创建定时任务"、"新建 cron"、"设置定时执行"、"定时运行"、"scheduled task"时使用此 skill。通过对话收集任务名称、任务描述、执行时间（小时和分钟），自动获取 session key（不需要用户配合），然后构造并执行 openclaw cron add 命令。
+description: 创建执行完成后能回复消息到指定渠道的 OpenClaw 定时任务（cron job）。当用户提到"创建定时任务"、"新建 cron"、"设置定时执行"、"定时运行"、"scheduled task"时使用此 skill。通过对话收集任务名称、任务描述、执行时间（小时和分钟），自动获取 session key（不需要用户配合），然后构造并执行 openclaw cron add 命令。
 ---
 
 # Build Cron Skill
