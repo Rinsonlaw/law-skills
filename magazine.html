@@ -666,15 +666,22 @@
       color: var(--text-muted);
     }
 
+    .card-content .table-wrapper {
+      overflow-x: auto;
+      margin: 16px 0;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      max-width: 100%;
+    }
+
     .card-content table {
       border-spacing: 0;
       font-size: 14px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
+      border: none;
+      border-radius: 0;
       table-layout: auto;
-      width: 100%;
-      max-width: 100%;
-      overflow-x: auto;
+      width: max-content;
+      min-width: 100%;
     }
 
     .card-content th, .card-content td {
@@ -707,14 +714,6 @@
 
     .card-content tr:last-child td:last-child {
       border-bottom-right-radius: var(--radius-md);
-    }
-
-    .card-content tr:last-child td {
-      border-bottom: none;
-    }
-
-    .card-content tr:hover td {
-      background: var(--surface);
     }
 
     /* Frontmatter */
@@ -1011,7 +1010,7 @@
       html = html.replace(/\|(.+)\|\n\|[-| ]+\|\n((?:\|.+\|\n)*)/g, (_, h, rows) => {
         const hs = h.split('|').filter(c => c.trim()).map(c => `<th>${c.trim()}</th>`).join('');
         const br = rows.trim().split('\n').map(r => '<tr>' + r.split('|').filter(c => c.trim()).map(c => `<td>${c.trim()}</td>`).join('') + '</tr>').join('');
-        return `<table><thead><tr>${hs}</tr></thead><tbody>${br}</tbody></table>`;
+        return `<div class="table-wrapper"><table><thead><tr>${hs}</tr></thead><tbody>${br}</tbody></table></div>`;
       });
       html = html.replace(/\n\n+/g, '</p><p>');
       html = '<p>' + html + '</p>';
