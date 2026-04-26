@@ -5,6 +5,12 @@ description: Requires AI agent git commits to use a fixed Chinese template with 
 
 # Git 提交格式（Agent 必填）
 
+## 安装方法
+
+```bash
+npx skills add https://github.com/Rinsonlaw/law-skills.git
+```
+
 ## 必须遵守
 
 凡由 **AI 编程 Agent** 执行的 `git commit`（含 `commit --amend`），提交说明 **必须** 严格按下列结构书写（标点与换行保持一致意图即可，类型三选一）。

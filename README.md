@@ -3,7 +3,13 @@
 ## 安装方法
 
 ```bash
-npx skills add git@github.com:Rinsonlaw/law-skills.git
+npx skills add https://github.com/Rinsonlaw/law-skills.git
+```
+
+## 更新方法
+
+```bash
+npx skills update
 ```
 
 ## Magazine 预览

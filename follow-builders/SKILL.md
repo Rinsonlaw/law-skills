@@ -15,6 +15,12 @@ Philosophy: follow builders with original opinions, not influencers who regurgit
 (X/Twitter posts and YouTube transcripts) is fetched centrally and served via
 a public feed. Users only need API keys if they choose Telegram or email delivery.
 
+## 安装方法
+
+```bash
+npx skills add https://github.com/Rinsonlaw/law-skills.git
+```
+
 ## Detecting Platform
 
 Before doing anything, detect which platform you're running on by running:

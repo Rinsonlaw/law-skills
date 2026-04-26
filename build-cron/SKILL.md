@@ -7,6 +7,12 @@ description: 创建执行完成后能回复消息到指定渠道的 OpenClaw 定
 
 将用户需求转换为 `openclaw cron add` 命令并执行。
 
+## 安装方法
+
+```bash
+npx skills add https://github.com/Rinsonlaw/law-skills.git
+```
+
 ## 工作流程
 
 ### 第一步：收集信息

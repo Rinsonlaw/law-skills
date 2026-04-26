@@ -7,6 +7,12 @@ description: 每日热点新闻分析并写入 Obsidian。当用户提到"新闻
 
 将每日热点新闻搜索并整理写入 Obsidian。
 
+## 安装方法
+
+```bash
+npx skills add https://github.com/Rinsonlaw/law-skills.git
+```
+
 ## 工作流程
 
 ### 第一步：获取 Obsidian 路径
