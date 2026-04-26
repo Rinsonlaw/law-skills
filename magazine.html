@@ -535,6 +535,7 @@
     /* Inner shell */
     .card-inner {
       padding: 16px 40px;
+      overflow-x: auto;
     }
 
     .card-header {
@@ -666,21 +667,21 @@
     }
 
     .card-content table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 16px 0;
+      border-spacing: 0;
       font-size: 14px;
-      border-radius: var(--radius-md);
-      overflow: hidden;
       border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      table-layout: auto;
+      width: 100%;
+      max-width: 100%;
       overflow-x: auto;
-      display: block;
     }
 
     .card-content th, .card-content td {
       padding: 14px 16px;
       text-align: left;
       border-bottom: 1px solid var(--border);
+      word-break: break-word;
     }
 
     .card-content th {
@@ -690,6 +691,22 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
       color: var(--text-dim);
+    }
+
+    .card-content th:first-child {
+      border-top-left-radius: var(--radius-md);
+    }
+
+    .card-content th:last-child {
+      border-top-right-radius: var(--radius-md);
+    }
+
+    .card-content tr:last-child td:first-child {
+      border-bottom-left-radius: var(--radius-md);
+    }
+
+    .card-content tr:last-child td:last-child {
+      border-bottom-right-radius: var(--radius-md);
     }
 
     .card-content tr:last-child td {
