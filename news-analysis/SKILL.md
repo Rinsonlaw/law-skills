@@ -21,7 +21,8 @@ npx skills add https://github.com/Rinsonlaw/law-skills.git
 
 ### 第二步：搜索热点新闻
 
-使用 `mmx search query` 分多角度搜索今日热点新闻：
+检索工具选择顺序：
+1. 如果当前模型是MiniMax，则使用 `mmx search query` 搜索。
 
 ```bash
 DATE=$(date +%Y-%m-%d)
@@ -30,6 +31,23 @@ mmx search query "国内时政 $DATE"
 mmx search query "财经新闻 $DATE"
 mmx search query "科技AI $DATE"
 ```
+
+2. 如果当前模型是GPT，则调用 `web_search` 工具联网搜索以下内容：
+
+> **提示：** 每次调用 `web_search` 时，需先获取当天日期（如 `2026-05-06`），拼接为完整搜索词后再调用。
+
+```bash
+# 获取当天日期
+DATE=$(date +%Y-%m-%d)
+
+# 调用 web_search 工具搜索（替换下方占位符）
+web_search "国际新闻 ${DATE}"
+web_search "国内时政 ${DATE}"
+web_search "财经新闻 ${DATE}"
+web_search "科技AI ${DATE}"
+```
+
+3. 如果没有联网搜索能力，停止任务并提示用户：当前环境无法获取最新新闻，需要启用联网搜索或提供新闻来源。
 
 ### 第三步：整理新闻内容
 
@@ -95,7 +113,7 @@ mmx search query "科技AI $DATE"
 ---
 
 *整理时间：$(date +%Y-%m-%d\ %H:%M:%S)*
-*整理工具：[工具名称比如MiniMax AI + OpenClaw]*
+*整理工具：{实际使用的检索工具} + {当前模型} + OpenClaw*
 
 ```
 
