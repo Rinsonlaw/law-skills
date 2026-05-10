@@ -22,6 +22,16 @@ cd law-skills && python3 -m http.server 8124
 
 然后访问 http://localhost:8124/magazine.html
 
+## builder-digest
+
+调用 follow-builders 获取 AI Builders Digest 并写入 Obsidian。
+
+- 自动获取日期和时间
+- 调用 follow-builders 的 Content Delivery 流程获取内容
+- 写入 Obsidian vault 的 `builders_digest/` 目录
+- Markdown 格式包含 X/Twitter 精选、播客精选、趋势归纳
+- 支持中英双语/Bilingual 格式（由 follow-builders 配置决定）
+
 ## build-cron
 
 创建 OpenClaw 定时任务（cron job）。对话收集任务名称、任务描述、执行时间，自动获取 session key，构造并执行 `openclaw cron add` 命令。
