@@ -44,8 +44,8 @@ Model：xxx
 ```text
 [bugfix] 修复空输入时崩溃
 
-- src/wrinkle/main.py：对 argv 判空并给出用法提示
-- tests/test.py：补充空参数用例
+- `src/wrinkle/main.py`: 对 argv 判空并给出用法提示
+- `tests/test.py`: 补充空参数用例
 
 Agent：Cursor Composer
 Model：claude-sonnet-4-20250514
@@ -54,7 +54,7 @@ Model：claude-sonnet-4-20250514
 ```text
 [optimize] 精简依赖与导入
 
-- pyproject.toml：移除未使用的 dev 依赖
+- `pyproject.toml`: 移除未使用的 dev 依赖
 
 Agent：Cursor Agent
 Model：unknown
